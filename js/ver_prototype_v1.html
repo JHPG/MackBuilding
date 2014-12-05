@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>Visualizador de Prototype</title>
+	<link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'/>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!--__________- Importar aqui  -_______________________________________________-->
+																			
+	<script type="text/javascript" src="mesa.prt.js"></script>
+	<script type="text/javascript" src="cadeira.prt.js"></script>
+
+<!--________________________________________________________________________________-->
+	<script type='text/javascript' id="script" src='http://www.x3dom.org/download/x3dom.js'></script>
+	<script type="text/javascript">
+		function loadPrt(){
+			var prt = document.getElementById("texto").value;
+			document.getElementById("prt").setAttribute("use", prt);
+
+			prtOrig();
+			window.onload();
+		}
+		function prtOrig(){
+			var x = document.getElementsByTagName("prototype");
+
+			for(var el in x){
+				var tipo = x[el].getAttribute("use");	//pega a variável a ser lida pelo "use"
+
+				if(tipo != null){
+					var html = "\n"+ eval(tipo) +"\n";	//a variável a ser usada foi passada pelo "use" do elemento usando o eval() que retornará o nome da variável
+					
+					$(html).insertAfter( x[el] );	//insere dps do nó
+					//x[el].parentNode.removeChild(x[el]);		//apaga o nó
+				}else{
+					x[el].innerHTML += "Prototype sem referencia";
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<h3>Nome do prototype: </h3><input type="text" id="texto"><input type="button" value="Carregar" onclick="loadPrt()" /><br/><br/>
+
+	<button onclick="window.open( document.getElementsByClassName('x3dom-canvas')[0].toDataURL() );"> Salvar imagem</button>
+
+	<x3d width='800px' height='500px'>
+		<Scene>
+			
+			<prototype id="prt" use=""></prototype>
+
+		</Scene>
+	</x3d>
+	
+	<p><i style="display:block;clear:both">Copyright: JHPG</i></p>
+</body>
+</html>
