@@ -6,6 +6,7 @@ function configurar(){
 		document.getElementById("modelo").style.display = "none";
 		document.getElementById("config").style.display = "block";
 		setTimeout('start()', 2000)
+		document.getElementById("canvas3").style.display = "block";
 		config = true;
 	} else {
 		document.getElementById("modelo").style.display = "block";
