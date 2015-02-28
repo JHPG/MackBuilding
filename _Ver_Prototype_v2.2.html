@@ -43,7 +43,7 @@
 	<script type="text/javascript" src="escada.x3d.js"></script> <!--  OK  -->		<!-- ↓ JS da escadaria toda aqui ↓ -->
 		<script type="text/javascript" src="Escadaria/Escadas/escada01.x3d.js"></script> <!--  OK -->
 			<script type="text/javascript" src="Escadaria/Escadas/Degraus/primeiroDegrau.x3d.js"></script> <!--  OK  -->
-			<script type="text/javascript" src="Escadaria/Escadas/Degraus/Degrau.x3d.js"></script>  <!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Escadas/Degraus/degrau.x3d.js"></script>  <!--  OK  -->
 			<script type="text/javascript" src="Escadaria/Balaustres/balaustre01.x3d.js"></script>  <!--  OK  -->
 			<script type="text/javascript" src="Escadaria/Balaustres/balaustre02.x3d.js"></script>  <!--  OK  -->
 			<script type="text/javascript" src="Escadaria/Corrimaos/corrimao.x3d.js"></script>  <!--  OK  -->
@@ -72,9 +72,7 @@
 		var n=1;
 		function prtOrig(){
 
-			var x = new Array(); 
-			x0 = document.getElementsByTagName("prototype");
-			x = Array.prototype.slice.call(x0);	//Transforma o HTML Colection em Array
+			var x = document.getElementsByTagName("prototype");
 
 			//while(x.length > 1){
 				//x = document.getElementsByTagName("prototype");
@@ -102,9 +100,8 @@
 					}
 				}
 				//Para remover textura, caso haja só cor
-				var y = new Array();
-				y0 = document.getElementsByTagName("ImageTexture");
-				y = Array.prototype.slice.call(y0);	//Transforma o HTML Colection em Array
+				var y = new Array(); 
+				y = document.getElementsByTagName("ImageTexture");
 
 				for(var i in y){
 					if (y[i].getAttribute("url") == ""){

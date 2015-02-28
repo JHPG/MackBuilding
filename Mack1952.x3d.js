@@ -30,7 +30,7 @@ function Mack1952(attr){    //nome do Prototype
                     <MetadataString name='modified'value='MackenzieBuilding'/>\n\
                 </MetadataSet> -->\n\
                     \n\
-            <Group DEF='WallIntRoom1aa_1952' onmouseover=\"showText('A sala 1, que já havia sido dividida, passa por uma nova divisão em 1952.', '') \">\n\
+            <Group DEF='WallIntRoom1aa_1952' onmouseover=\"showText('A sala 1, que já havia sido dividida, passa por uma nova divisão em 1952.') \">\n\
                 <!-- <MetadataSet name='Room1aa' reference='Room1aa in Rector's Office due the division of Room1a'>\n\
                         <MetadataString name='isIncorporatedIn' value='MackenzieBuilding'/>\n\
                         <MetadataString name='isComposedOf' value='ExternalWall'/>\n\

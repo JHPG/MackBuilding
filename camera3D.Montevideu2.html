@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+      <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+    <title>Canvas Path Test</title>
+    
+	<meta charset="ISO-8859-1" />
 	<title>Mackenzie Building</title>
-	<link rel="stylesheet" type="text/css" href="x3dom.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/x3dom.css"></link>
 	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 
@@ -35,7 +40,7 @@
 	<script type="text/javascript" src="Mack1952.x3d.js"></script>
 	<script type="text/javascript" src="Mack2004.x3d.js"></script>
 
-	<script type="text/javascript" src="escada.x3d.js"></script> <!--  Terminar módulos  -->
+	<script type="text/javascript" src="escada.x3d.js"></script> <!--  Terminar mÃ³dulos  -->
 		<!--  JS da escadaria toda aqui  -->
 		<script type="text/javascript" src="Escadaria/Escadas/escada01.x3d.js"></script> <!--  OK -->
 			<script type="text/javascript" src="Escadaria/Escadas/Degraus/primeiroDegrau.x3d.js"></script> <!--  OK  -->
@@ -48,76 +53,259 @@
 		<script type="text/javascript" src="Escadaria/Escadas/escada02.x3d.js"></script> <!--  OK  -->
 		<!--- - - - -->
 
-	<script type="text/javascript" src="js/prototype_x3dom_v2.1.js"></script>	<!-- O núcleo do prototype -->
+	<script type="text/javascript" src="js/prototype_x3dom_v2.js"></script>	<!-- O nÃºcleo do prototype -->
 	
-	<script type="text/javascript" src="x3dom.js"></script><!-- O núcleo do X3DOM -->
+	<script type="text/javascript" src="http://www.x3dom.org/download/x3dom.js"></script><!-- O nÃºcleo do X3DOM -->
 
 	<script type="text/javascript">
 		//var canvas = document.getElementsByClassName('x3dom-canvas')[0];
 		//canvas.width  = window.innerWidth;
 		//canvas.height = window.innerHeight;
 
-		function switcher(opcao, nomeSwitcher){
-			document.getElementById(nomeSwitcher).whichChoice = opcao;
+		function switcher(opcao){
+			document.getElementById("switcher").whichChoice = opcao;
 		}
 
-		function showText(text){
-			var vet = text.split("."); var text2="";
-			for (var i in vet) {
-		 		text2 += vet[i] + ".</p><p>";
-			}
-			text2 = "<p>"+ text2 +"</p>";
-			document.getElementById("info").innerHTML = text2;
-		}
 	</script>
+
+    <script type='text/javascript'>
+    
+    var mouse_drag_x = 0, mouse_drag_y = 0;
+    var last_mouse_drag_x = -1, last_mouse_drag_y = -1;
+    var mouse_button = 0;
+    var mouse_dragging = false;
+    
+    var pen_col = "000000";
+    var pen_size = 1;
+    var bg_col = "#000000";
+    
+
+    
+    function main() 
+    {
+        var myCanvas = document.getElementById("canvas3");
+        
+        initCanvas(myCanvas);
+        
+        // redraw the canvas...
+        var context = myCanvas.getContext("2d");
+        context.fillStyle = 'rgb(255,255,255)';
+        context.fillRect(0, 0, myCanvas.width, myCanvas.height);
+        context.lineCap = "round";
+    }
+    
+    function updateImage(canvas)
+    {
+        var context = canvas.getContext("2d");
+
+        setInterval( function(){
+			// FIXME: Not the final interface
+     	   canvas.parentNode._x3domNode.invalidateGLObject();
+        
+     	   last_mouse_drag_x = mouse_drag_x;
+     	   last_mouse_drag_y = mouse_drag_y;
+
+			var img=document.getElementById("scream");
+			context.drawImage(img,10,10);
+		}, 50);
+        
+    }
+    
+    // add event listeners
+    function initCanvas(canvas)
+    {
+		
+		canvas.addEventListener('mouseup', function (evt) {
+			mouse_button = 0;
+			mouse_dragging = false;
+            last_mouse_drag_x = -1;
+            last_mouse_drag_y = -1;
+            
+            updateImage(canvas);
+			
+			evt.preventDefault();
+			evt.stopPropagation();
+			evt.returnValue = false;
+		}, false);
+		
+
+    }
+    </script>
+    
+    
+    <link rel='stylesheet' type='text/css' href='x3dom.css'>
+
 </head>
 
-<body>
-<div>
-
-<button onclick="switcher('0','switcher'); showText('<h3>Mackenzie Building 1896</h3> - Escola de Engenharia')">
-	1896</button>
-<button onclick="switcher('1','switcher'); showText('<h3>Mackenzie Building 1920</h3> - Escola de Engenharia')">
-	1920</button>
-<button onclick="switcher('2','switcher'); showText('<h3>Mackenzie Building 1952</h3> - Em 1952 o Edifício Mackenzie passa a sediar a Reitoria!')">
-	1952</button>
-<button onclick="switcher('3','switcher'); showText('<h3>Mackenzie Building 2004</h3> - Centro Histórico e Cultural Mackenzie')">
-	2004</button>
-
-	
-	
-<style>
+<body onload='main();' style="background-color:#F0F0F0">
 
 
-	#info{
-		height: 0;
-		background-color: transparent;
-		opacity: 1; 
-	}
 
-</style>	
-	
-	
-	
-	
-<span id="info"><h3>Mackenzie Building</h3></span>
 
-<x3d width='1280px' height='600px' id="Modelo"> 
-	<Scene>
+
+
+
+	<video autoplay id="vid" style="display:none;"></video>
 	
-	<shape>
+	<canvas id="canvas" width="640" height="480" style="border:1px solid #d3d3d3;"></canvas><br>
+	<canvas id="canvas2" width="640" height="480" style="border:1px solid #d3d3d3;"></canvas><br>	
+	<button onclick="setTimeout('start()', 2000);">Iniciar</button>
+	<button onclick="snapshot()">Adaptar novamente</button>
+
+	<br />
+	
+	<script type="text/javascript">
+
+	    var video = document.querySelector("#vid");
+	    var canvas;
+	    var ctx;
+	    var localMediaStream = null;
+
+	    var onCameraFail = function (e) {
+		   console.log('Camera did not work.', e);
+	    };
+
+		function start(){			
+			setTimeout("snapshot()",800);
+			
+			setInterval("snapshot2()",50);
+			setInterval("cut()",75);					
+		}
+
+	    function snapshot() {
+			canvas = document.querySelector('#canvas');	    
+			ctx = canvas.getContext('2d');
+		   if (localMediaStream) {
+			  ctx.drawImage(video, 0, 0);
+		   }
+	    }
+
+
+	    function snapshot2() {
+		   canvas = document.querySelector('#canvas2');
+			ctx = canvas.getContext('2d');		   
+		   if (localMediaStream) {
+			  ctx.drawImage(video, 0, 0);
+		   }
+	    }
+
+	    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+	    window.URL = window.URL || window.webkitURL;
+	    navigator.getUserMedia({video:true}, function (stream) {
+		   video.src = window.URL.createObjectURL(stream);
+		   localMediaStream = stream;
+	    }, onCameraFail);
+
+	function cut(){
+            var c=document.getElementById("canvas");
+		  var ctx=c.getContext("2d");
+		  var imgData=ctx.getImageData(0,0,c.width,c.height);
+
+		  var c2=document.getElementById("canvas2");
+		  var ctx2=c2.getContext("2d");
+		  var imgData2=ctx2.getImageData(0,0,c2.width,c2.height);
+
+		var c3=document.getElementById("canvas3");
+		  var ctx3=c3.getContext("2d");
+		  var 	count = 1;
+		  // captura somente a diferença
+		  for (var i=0;i<imgData.data.length;i+=4)
+		    {
+
+				imgData2.data[i+3]=0;
+
+				//RED
+				soma1 = imgData.data[i];
+				soma2 = imgData2.data[i];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;				
+				if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+
+				//GREEN
+				soma1 = imgData.data[i + 1];
+				soma2 = imgData2.data[i + 1];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;		
+			    if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+					    
+				//BLUE
+				soma1 = imgData.data[i + 2];
+				soma2 = imgData2.data[i + 2];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;	
+			    if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+
+				//Opacity
+				soma1 = imgData.data[i + 3];
+				soma2 = imgData2.data[i + 3];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;				
+				if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+
+				if ( i > 4*c.width*10 ){
+					if ( 
+							imgData2.data[i+3 - 4*c.width*1 ] == 0 &
+							imgData2.data[i+3 - 4*1 ] == 0 & count%2 == 0
+						){
+							imgData2.data[i+3] = 0;
+							imgData2.data[i+1] = 255;
+							count = count%4;
+					}
+					count++;
+				}
+
+		    }
+		  ctx3.putImageData(imgData2,0,0);	
+		}
+
+	</script>
+
+
+
+
+
+	<br />
+
+
+
+
+
+
+
+
+    <x3d id="aScene" showStat="true" showLog="false" x="0px" y="0px" width="500px" height="350px">
+
+      <scene>
+          <shape>
             <appearance>
                 <texture hideChildren="false">
-                    <canvas width='640' height='480' id='canvas3' style="border: solid 0px black; position:absolute; top:94px;left:291px;">
+                    <canvas width='256' height='256' id='canvas3' style="border: solid 1px black; position:absolute; top:20px;left:520px;">
                 </texture>
                 <material diffuseColor='0.6 0.9 0.5'></material>	
             </appearance>
-<!--            <box></box> -->
+            <box></box>
          </shape>
-		<Transform DEF="sphereTrafo" translation="1.5 0 0">
-					
-		</Transform>
-	
+      </scene>
+
+      <scene>
+        <background skyColor='.5 .4 .2'></background>
+        <viewpoint position='0 0 8' viewpointChanged='alert()'></viewpoint>
+
+
+
+
+
+
+
+
+
+
+	<button onclick="switcher('0')">1896</button>
+	<button onclick="switcher('1')">1920</button>
+	<button onclick="switcher('2')">1952</button>
+	<button onclick="switcher('3')">2004</button>
+
+	<Scene>
 		<!-- <ExternProtoDeclare name='Hall' url=' "hallPrototype.x3d" '>
 			<field name='hallIntTextureUrl' type='MFString' accessType='inputOutput'/>
 			<field name='hallIntColor' type='SFColor' value='1 1 1' accessType='inputOutput'/>
@@ -420,7 +608,7 @@
 		  </Transform>
 		</Transform> 
 	</Transform>    
-		<Transform DEF="BehindCorner" rotation='1 0 0 3.14' translation='-0.01 3.7 -17.39'>
+		<Transform DEF="BehindCorner" rotation='1 0 0 3.14' translation='-0.01 2.4 -17.39'>
 			<!-- <ProtoInstance name='Corner'>
 				<fieldValue name='cornerColor' value='0.58 0.72 0.95'/>
 				<fieldValue name='cornerTranslation' value='-.725 1.85 0'/>
@@ -528,13 +716,14 @@
 					<fieldValue name='wallIntTextureUrl' value='texture/tijolo.jpg'/>
 					<fieldValue name='wallIntTextureTransformScale' value='0.9 1.25'/>
 				</ProtoInstance> -->
-				<prototype use='WallInt' 
-					wallIntRotation = '0 1 0 1.57' 
-					wallIntColor = '0.58 0.72 0.95' 
-					wallIntScale = '1.1 1.0 1.0' 
-					wallIntTextureUrl = 'texture/tijolo.jpg' 
-					wallIntTextureTransformScale = '0.9 1.25' 
-					wallIntTranslation ='0 0 0'>
+				<prototype use='WallInt'
+					wallIntRotation = '0 1 0 1.57'
+					wallIntColor = '0.58 0.72 0.95'
+					wallIntScale = '1.1 1.0 1.0'
+					wallIntTextureUrl = 'texture/tijolo.jpg'
+					wallIntTextureTransformScale = '0.9 1.25'
+					wallIntTranslation ='0 0 0'
+					wallIntRotation ='-1 -1 -1 0'>
 				</prototype>
 		   </Group>
 		</Transform>
@@ -579,8 +768,8 @@
 					<!-- <Inline  bboxCenter="0.0 0.0 0.0" url='"1920.x3d"' bboxSize="10.0 5.0 10.0" /> -->
 					<prototype use="Mack1920"></prototype>
 				 </Transform>
-				<Group DEF="Stairs" onmouseover=" showText('A escada foi refeita e ficou voltada para a entrada do Campus. Foi alterada, provavelmente, em 1920, e assim permanece até hoje.'); ">
-					<Transform translation="0.15 0.0 -0.6">
+				<Group DEF="Stairs">
+					<Transform  translation="0.15 0.0 -0.6" >
 						<!-- <Inline  bboxCenter="0.0 0.0 0.0" url='"escada.x3d"' bboxSize="5.0 5.0 5.0"/> -->
 						<prototype use="escada"> </prototype>
 					</Transform>
@@ -589,7 +778,7 @@
 					
 			<Group DEF="wall1952">
 				 <!-- <WorldInfo info='Rectors Office' title='Mackenzie Building 1952 - Rectors Office'/> -->
-				 <Transform  translation="0 0 0">
+				 <Transform  translation="0  0 0" >
 					<!-- <Inline bboxCenter="0.0 0.0 0.0" url='"1952.x3d"' bboxSize="10.0 5.0 10.0" /> -->
 					<prototype use="Mack1952"> </prototype>
 				 </Transform>
@@ -719,131 +908,40 @@ Descomentar-FIM -->
 			</Script> 
 			<ROUTE fromNode='SC' fromField='addChildren' toNode='wall1920' toField='addChildren'/>-->
 	   
-	   
-	   
-	    
-	   
 	</Scene>
-	</x3d>
-	
-	<video autoplay id="vid" style="display:none;"></video>
-	
-	<canvas id="canvas" width="640" height="480" style="border:1px solid #d3d3d3;"></canvas><br>
-	<canvas id="canvas2" width="640" height="480" style="border:1px solid #d3d3d3;"></canvas><br>	
-	<button onclick="setTimeout('start()', 2000);">Iniciar</button>
-	<button onclick="snapshot()">Adaptar novamente</button>
-	
-	
-	<script type="text/javascript">
-
-	    var video = document.querySelector("#vid");
-	    var canvas;
-	    var ctx;
-	    var localMediaStream = null;
-
-	    var onCameraFail = function (e) {
-		   console.log('Camera did not work.', e);
-	    };
-
-		function start(){			
-			setTimeout("snapshot()",800);
-			
-			setInterval("snapshot2()",50);
-			setInterval("cut()",75);					
-		}
-
-	    function snapshot() {
-			canvas = document.querySelector('#canvas');	    
-			ctx = canvas.getContext('2d');
-		   if (localMediaStream) {
-			  ctx.drawImage(video, 0, 0);
-		   }
-	    }
 
 
-	    function snapshot2() {
-		   canvas = document.querySelector('#canvas2');
-			ctx = canvas.getContext('2d');		   
-		   if (localMediaStream) {
-			  ctx.drawImage(video, 0, 0);
-		   }
-	    }
 
-	    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-	    window.URL = window.URL || window.webkitURL;
-	    navigator.getUserMedia({video:true}, function (stream) {
-		   video.src = window.URL.createObjectURL(stream);
-		   localMediaStream = stream;
-	    }, onCameraFail);
 
-	function cut(){
-            var c=document.getElementById("canvas");
-		  var ctx=c.getContext("2d");
-		  var imgData=ctx.getImageData(0,0,c.width,c.height);
 
-		  var c2=document.getElementById("canvas2");
-		  var ctx2=c2.getContext("2d");
-		  var imgData2=ctx2.getImageData(0,0,c2.width,c2.height);
 
-		var c3=document.getElementById("canvas3");
-		  var ctx3=c3.getContext("2d");
-		  var 	count = 1;
-		  // captura somente a diferença
-		  for (var i=0;i<imgData.data.length;i+=4)
-		    {
 
-				imgData2.data[i+3]=0;
 
-				//RED
-				soma1 = imgData.data[i];
-				soma2 = imgData2.data[i];
-				if (soma1 < 124) soma1 = 255 - soma1;
-				if (soma2 < 124) soma2 = 255 - soma2;				
-				if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
 
-				//GREEN
-				soma1 = imgData.data[i + 1];
-				soma2 = imgData2.data[i + 1];
-				if (soma1 < 124) soma1 = 255 - soma1;
-				if (soma2 < 124) soma2 = 255 - soma2;		
-			    if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
-					    
-				//BLUE
-				soma1 = imgData.data[i + 2];
-				soma2 = imgData2.data[i + 2];
-				if (soma1 < 124) soma1 = 255 - soma1;
-				if (soma2 < 124) soma2 = 255 - soma2;	
-			    if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
 
-				//Opacity
-				soma1 = imgData.data[i + 3];
-				soma2 = imgData2.data[i + 3];
-				if (soma1 < 124) soma1 = 255 - soma1;
-				if (soma2 < 124) soma2 = 255 - soma2;				
-				if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
 
-				if ( i > 4*c.width*10 ){
-					if ( 
-							imgData2.data[i+3 - 4*c.width*1 ] == 0 &
-							imgData2.data[i+3 - 4*1 ] == 0 & count%2 == 0
-						){
-							imgData2.data[i+3] = 0;
-							imgData2.data[i+1] = 255;
-							count = count%4;
-					}
-					count++;
-				}
 
-		    }
-		  ctx3.putImageData(imgData2,0,0);	
-		}
 
-	</script>
-	
-</div>
+		<Transform DEF="sphereTrafo" translation="1.5 0 0">
+					<Shape DEF="sphereShape">
+						<Appearance DEF="sphereApp">
+							<Material diffuseColor="0 0 1" specularColor=".5 .5 .5" />
+						</Appearance>
+						<Sphere DEF="sphere" />
+					</Shape>
+		</Transform>
+      </scene>
+    </x3d>
+    
+
+    <script type="text/javascript" src="x3dom.js"></script>
+        
+	<br />
+
+
+	<img id="scream" src="mack.jpg" alt="description" title="description" width="400" height="" />
+    
 </body>
+
 </html>
-
-
-
 

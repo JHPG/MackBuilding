@@ -25,7 +25,7 @@ function Mack2004(attr){    //nome do Prototype
 			<field name='wallIntHallRotation' type='SFRotation' accessType='inputOutput'/>\n\
 		</ExternProtoDeclare> -->\n\
 		   <!--  <WorldInfo info='Historical Center' title='Mackenzie Building 2004 - Historical Center'/> -->        \n\
-		   <Group DEF='WallIntRoom1aa_2004' onmouseover=\" showText('O Edifício Mackenzie foi tombado em 1993, como bem cultural de interesse histórico-arquitetônico, não só pela tipologia arquitetônica, mas também pelo significado histórico-cultural que representou em relação ao ensino.', ''); \">\n\
+		   <Group DEF='WallIntRoom1aa_2004' onmouseover=\" showText('O Edifício Mackenzie foi tombado em 1993, como bem cultural de interesse histórico-arquitetônico, não só pela tipologia arquitetônica, mas também pelo significado histórico-cultural que representou em relação ao ensino.'); \">\n\
 				<!-- <MetadataSet name='Room1aa' reference='Room1aa in Historiacal Center due the division of Room1a'>\n\
 						<MetadataString name='isIncorporatedIn' value='MackenzieBuilding'/>\n\
 						<MetadataString name='isComposedOf' value='ExternalWall'/>\n\
@@ -565,7 +565,7 @@ function Mack2004(attr){    //nome do Prototype
 			</Group>    \n\
 \n\
 			<Transform translation='6.85 -0.90 -8.9'>\n\
-				<Group DEF='HallIntWalls' onmouseover=\" showText('Em 1998 iniciam-se as obras de restauro do Edifício, em consequência do tombamento. As obras de restauro foram concluídas em 2004.', '') \"> \n\
+				<Group DEF='HallIntWalls' onmouseover=\" showText('Em 1998 iniciam-se as obras de restauro do Edifício, em consequência do tombamento. As obras de restauro foram concluídas em 2004.') \"> \n\
 					<Transform rotation='0 1 0 3.14'>\n\
 						<Shape >\n\
 							<Appearance >\n\

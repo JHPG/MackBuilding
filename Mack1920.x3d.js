@@ -39,7 +39,7 @@ function Mack1920(attr){ 	//nome do Prototype
 						<MetadataInteger name='finishTime' value='1952'/>\n\
 						<MetadataInteger name='wasChangedIn' value='1952'/>\n\
 				   </MetadataSet> -->\n\
-				<Transform DEF='SideWall1' translation='2.85 1.4 -6.1' onmouseover=\" showText('Parede divisória: feita em tabique, ou seja, madeira vazada internamente, coberta por juta e tela de arame para segurar a argamassa. Técnica construtiva comum na época.Construída em 1920 e substituída em 1998, por parede de alvenaria.', ''); \">\n\
+				<Transform DEF='SideWall1' translation='2.85 1.4 -6.1' onmouseover=\" showText('Parede divisória: feita em tabique, ou seja, madeira vazada internamente, coberta por juta e tela de arame para segurar a argamassa. Técnica construtiva comum na época.Construída em 1920 e substituída em 1998, por parede de alvenaria.'); \">\n\
 					<!-- <MetadataSet name='PartitionWall' reference='partition wall made wood leaked internally, covered with jute and wire mesh to hold the mortar'>\n\
 						<MetadataString name='consistsOf' value='Wood'/>\n\
 						<MetadataString name='consistsOf' value='Mortar'/>\n\
@@ -216,7 +216,7 @@ function Mack1920(attr){ 	//nome do Prototype
 				   <Transform translation='0 0 -0.1'>\n\
 						<Group USE='SideWall1' />\n\
 				   </Transform>\n\
-				   <Group DEF='WallInt74x20' onmouseover=\" showText('Sala 1 da Escola de Engenharia foi dividida em duas salas. Modificação feita em 1920', ''); \">\n\
+				   <Group DEF='WallInt74x20' onmouseover=\" showText('Sala 1 da Escola de Engenharia foi dividida em duas salas. Modificação feita em 1920'); \">\n\
 					   <Transform translation='2.85 1.4 -11.1'>\n\
 							<!-- <ProtoInstance name='WallInt'>\n\
 								<fieldValue name='wallIntColor' value='1.0 1.0 1.0' />\n\
@@ -276,7 +276,7 @@ function Mack1920(attr){ 	//nome do Prototype
 			</Group>\n\
 		\n\
 		<Transform translation='6.85 -0.90 -8.9'>\n\
-		<Group DEF='HallIntWalls' onmouseover=\" showText('A escada foi refeita e ficou voltada para a entrada do Campus. Foi alterada, provavelmente, em 1920, e assim permanece até hoje.', ''); \"> \n\
+		<Group DEF='HallIntWalls' onmouseover=\" showText('A escada foi refeita e ficou voltada para a entrada do Campus. Foi alterada, provavelmente, em 1920, e assim permanece até hoje.'); \"> \n\
 			<Transform rotation='0 1 0 3.14'>\n\
 			<Shape >\n\
 				<Appearance >\n\
