@@ -32,6 +32,15 @@ function showText(text){
 	document.getElementById("info").innerHTML = text2;
 }
 
-
-
+function fullscreen (element) {
+	if(element.requestFullscreen) {
+		element.requestFullscreen();
+	} else if(element.mozRequestFullScreen) {
+		element.mozRequestFullScreen();
+	} else if(element.webkitRequestFullscreen) {
+		element.webkitRequestFullscreen();
+	} else if(element.msRequestFullscreen) {
+		element.msRequestFullscreen();
+	}
+}
 
