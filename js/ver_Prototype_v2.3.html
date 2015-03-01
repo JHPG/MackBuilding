@@ -1,0 +1,161 @@
+<html>
+<head>
+	<title>Visualizador de Prototype</title>
+	<link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'/>
+	<style>
+		#Modelo{
+			background-color: #777;
+		}
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!--__________- Importar aqui  -_______________________________________________-->
+																			
+	<script type="text/javascript" src="Hall.x3d.js"></script><!--  OK  -->
+	<script type="text/javascript" src="WallWithWindow.x3d.js"></script><!--  OK  -->
+	<script type="text/javascript" src="Wall.x3d.js"></script> <!--  OK -->
+	<script type="text/javascript" src="WallInt.x3d.js"></script><!--  OK  -->
+	<script type="text/javascript" src="Corner.x3d.js"></script><!--  OK  -->
+	<script type="text/javascript" src="FirstFloor.x3d.js"></script><!--  OK  -->
+	<script type="text/javascript" src="floorStair.x3d.js"></script><!--  OK  -->
+	<script type="text/javascript" src="Entrance.x3d.js"></script><!--  OK  -->
+	<script type="text/javascript" src="FrontFloorStair.x3d.js"></script><!--  OK  -->
+
+	<!-- Inline's -->
+	<script type="text/javascript" src="Mack1896.x3d.js"></script><!--  OK  -->
+		<script type="text/javascript" src="models/ChairTable.x3d.js"></script><!--  OK  -->
+			<script type="text/javascript" src="models/SchoolChairTable.x3d.js"></script><!--  OK  -->
+			<script type="text/javascript" src="models/Chair.x3d.js"></script><!--  OK  -->
+			<script type="text/javascript" src="models/Table.x3d.js"></script><!--  OK  -->
+			<script type="text/javascript" src="models/Blackboard.x3d.js"></script><!--  OK  -->
+		<script type="text/javascript" src="WallWithWindowInt.x3d.js"></script><!--  OK  -->
+		<script type="text/javascript" src="escada1895.x3d.js"></script><!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Escadas/escada01_1895.x3d.js"></script><!--  OK  -->
+				<script type="text/javascript" src="Escadaria/Escadas/Degraus/degrau1895.x3d.js"></script>  <!--  OK  -->
+				<script type="text/javascript" src="Escadaria/Escadas/Degraus/primeiroDegrau.x3d.js"></script>  <!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Patamares/patamar1895.x3d.js"></script><!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Escadas/escada02_1895.x3d.js"></script><!--  OK  -->
+
+	<script type="text/javascript" src="Mack1920.x3d.js"></script><!--  (+ -)  -->
+	<script type="text/javascript" src="Mack1952.x3d.js"></script><!--  (+ -)  -->
+	<script type="text/javascript" src="Mack2004.x3d.js"></script><!--  (+ -)  -->
+
+
+	<script type="text/javascript" src="escada.x3d.js"></script> <!--  OK  -->		<!-- ↓ JS da escadaria toda aqui ↓ -->
+		<script type="text/javascript" src="Escadaria/Escadas/escada01.x3d.js"></script> <!--  OK -->
+			<script type="text/javascript" src="Escadaria/Escadas/Degraus/primeiroDegrau.x3d.js"></script> <!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Escadas/Degraus/Degrau.x3d.js"></script>  <!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Balaustres/balaustre01.x3d.js"></script>  <!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Balaustres/balaustre02.x3d.js"></script>  <!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Corrimaos/corrimao.x3d.js"></script>  <!--  OK  -->
+		<script type="text/javascript" src="Escadaria/Patamares/patamarTP.x3d.js"></script> <!--  OK  -->
+			<script type="text/javascript" src="Escadaria/Balaustres/balaustre03.x3d.js"></script> <!--  OK  -->
+		<script type="text/javascript" src="Escadaria/Escadas/escada02.x3d.js"></script> <!--  OK  -->
+		<!--- - - - -->
+
+<!--________________________________________________________________________________-->
+	<script type='text/javascript' id="script" src='http://www.x3dom.org/download/x3dom.js'></script>
+	<script type="text/javascript">
+
+		function loadPrt(){
+			var prt = document.getElementById("texto").value;
+			document.getElementById("prt").setAttribute("use", prt);
+
+			//prtOrig();
+			//window.onload();
+
+			//while(document.getElementsByTagName("prototype").length > 1)
+			//{
+				prtOrig();
+			//}
+		}
+
+		var n=1;
+		function prtOrig(){
+
+			var x = new Array(); 
+			x0 = document.getElementsByTagName("prototype");
+			x = Array.prototype.slice.call(x0);	//Transforma o HTML Colection em Array
+
+			//while(x.length > 1){
+				//x = document.getElementsByTagName("prototype");
+
+				for(var i in x){
+					var use = x[i].getAttribute("use");	//pega a variável a ser lida pelo "use"
+					if(use != null){
+						try {
+						    var varTeste = eval("test"+use);	//Seleciona valor de teste de acordo com o objeto
+						}
+						catch(e) {
+							var varTeste = " 'color':'.5 .5 .5' ";//O que vai aparecer se não houver variável teste
+						}
+						var x3d = eval(use+'({'+ varTeste +'})');
+
+						var html = "<Group DEF='"+use+"'>"+ x3d +
+							"</Group>";	//a variável a ser usada foi passada pelo "use" do elemento usando o eval() e retornará o nome da variável
+						$(html).insertAfter( x[i] );	//insere dps do nó
+
+						if(x[i] != document.getElementById("prt") ){
+							//x[i].parentNode.removeChild(x[i]);		//apaga o nó
+						}
+					}else{
+						alert("Prototype sem referencia"+ use);
+					}
+				}
+				//Para remover textura, caso haja só cor
+				var y = new Array();
+				y0 = document.getElementsByTagName("ImageTexture");
+				y = Array.prototype.slice.call(y0);	//Transforma o HTML Colection em Array
+
+				for(var i in y){
+					if (y[i].getAttribute("url") == ""){
+
+						y[i].parentNode.removeChild(y[i]);
+					}
+				}
+
+			if(n<3){	//Prototype dentro de outro
+				n++;
+				prtOrig();
+			}
+			//}
+		}
+	</script>
+</head>
+<body>
+	<h3>Nome do prototype: </h3><input type="text" id="texto"><input type="button" value="Carregar" onclick="loadPrt()" /><br/><br/>
+
+	<button onclick="window.open( document.getElementsByClassName('x3dom-canvas')[0].toDataURL() );"> Salvar imagem</button>
+
+	<x3d width='1024px' height='600px' id="Modelo">
+		<Scene>
+			
+			<prototype id="prt" use=""></prototype>
+
+		</Scene>
+	</x3d>
+	
+	<p><i style="display:block;clear:both">Author: JHPG</i></p>
+</body>
+</html>
+<!--
+
+Para criar js:
+
+	- Substituir aspas duplas por simples;
+
+	- adicionar no início:
+		function Blackboard(attributes){ //nome do Prototype
+			return "\n\
+			\
+
+	- e no final:
+			\
+			";
+		}
+
+	- Adicionar \ no final de cada linha, inclusive linhas em branco;
+	
+
+-->
+
+

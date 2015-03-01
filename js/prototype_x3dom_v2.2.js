@@ -27,8 +27,9 @@ window.onload = function(){ addPrototypes(); };
 
 function addPrototypes() {
 
-	x = new Array(); 
-	x = document.getElementsByTagName("prototype");
+	var x = new Array(); 
+	x0 = document.getElementsByTagName("prototype");
+	x = Array.prototype.slice.call(x0);	//Transforma o HTML Colection em Array (Firefox fix)
 
 	while(x.length != 0){
 
@@ -55,7 +56,7 @@ function addPrototypes() {
 			for(var att in attribs2){
 				attrObj += " '" + attribs2[att].name + "':'" + attribs2[att].value + "', ";
 			}
-			attrObj += " 'a':'a' ";
+			attrObj += " '':'' ";
 		//-------(JSON) - Exemplo do que é montado aqui: '{ "color": "0 0 0", "texture": " " }'
 			
 			//Atributos mandados como objeto (attrObj)
@@ -63,7 +64,8 @@ function addPrototypes() {
 		//Adicionar o elemento 
 			
 			var use = null;
-			use = x[i].getAttribute("use");	//pega a variável a ser lida pelo "use"
+			//use = x[i].getAttribute("use");	//pega a variável a ser lida pelo "use"
+			use = $(x[i]).attr("use");
 
 			if(use != null){
 				var html = "<Group DEF='"+use+"'>"+
@@ -76,15 +78,18 @@ function addPrototypes() {
 				x[i].innerHTML += "Prototype sem referencia";
 			}
 		}
-		x = document.getElementsByTagName("prototype");
+		x0 = document.getElementsByTagName("prototype");
+		x = Array.prototype.slice.call(x0);	//Transforma o HTML Colection em Array
 
 
 		//Para remover textura, caso haja cor
-		var y = new Array(); 
-		y = document.getElementsByTagName("ImageTexture");
+		var y = new Array();
+		y0 = document.getElementsByTagName("ImageTexture");
+		y = Array.prototype.slice.call(y0);	//Transforma o HTML Colection em Array
 
 		for(var i in y){
-			if (y[i].getAttribute("url") == ""){
+			//if (y[i].getAttribute("url") == ""){
+			if ($(y[i]).attr("url") == ""){
 
 				y[i].parentNode.removeChild(y[i]);
 			}
