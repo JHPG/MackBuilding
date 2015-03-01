@@ -1,6 +1,7 @@
 var config = false;
+var camera = false;
 
-function configurar(){
+function toggleConfig(){
 
 	if (!config){
 		document.getElementById("modelo").style.display = "none";
@@ -8,11 +9,23 @@ function configurar(){
 		setTimeout('start()', 2000)
 		document.getElementById("canvas3").style.display = "block";
 		config = true;
+		camera = true;
 	} else {
 		document.getElementById("modelo").style.display = "block";
 		document.getElementById("config").style.display = "none";
 		config = false;
 	}
+}
+
+function toggleCamera(){
+	var canvas = document.getElementById("canvas3");
+	if (camera) {
+		canvas.style.display = "none"; 
+		camera = false;
+	} else {
+		canvas.style.display = "block"; camera = true;
+	}
+	//canvas.toggle(); //JQuery function
 }
 
 //var canvas = document.getElementsByClassName('x3dom-canvas')[0];
