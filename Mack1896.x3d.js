@@ -55,7 +55,7 @@ function Mack1896(attr){ 	//nome do Prototype
 				</Transform>\n\
 			</Group>\n\
 			\n\
-			<Group DEF='WallIntRoom1' onmouseover=\" showText('Sala 1 foi dividida em 2 salas, durante o funcionamento da Escola de Engenharia.', ''); \">\n\
+			<Group DEF='WallIntRoom1' onmouseover=\" showText('Sala 1 foi dividida em 2 salas, durante o funcionamento da Escola de Engenharia.'); \">\n\
 				<!-- <WorldInfo info='Room1 Internal Wall' title='Mackenzie Building 1896'>\n\
 				   <MetadataSet name='Room1' reference='Room1 in School of Engineering'>\n\
 						<MetadataString name='wasDividedIn' value='Room1a'/>\n\
@@ -294,7 +294,7 @@ function Mack1896(attr){ 	//nome do Prototype
 				\n\
 			</Group>\n\
 		\n\
-		<Transform translation='6.85 -0.90 -8.9' onmouseover=\" showText('Antigamente as escadas eram voltadas para a entrada da rua. Foi alterada, provavelmente, em 1920.', '');\">\n\
+		<Transform translation='6.85 -0.90 -8.9' onmouseover=\" showText('Antigamente as escadas eram voltadas para a entrada da rua. Foi alterada, provavelmente, em 1920.');\">\n\
 			<Group DEF='HallIntWalls'> \n\
 				<Transform rotation='0 1 0 3.14'>\n\
 				<Shape >\n\

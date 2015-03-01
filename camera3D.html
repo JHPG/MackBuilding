@@ -1,0 +1,249 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+      <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+    <title>Canvas Path Test</title>
+    
+    <script type='text/javascript'>
+    
+    var mouse_drag_x = 0, mouse_drag_y = 0;
+    var last_mouse_drag_x = -1, last_mouse_drag_y = -1;
+    var mouse_button = 0;
+    var mouse_dragging = false;
+    
+    var pen_col = "000000";
+    var pen_size = 1;
+    var bg_col = "#000000";
+    
+
+    
+    function main() 
+    {
+        var myCanvas = document.getElementById("canvas3");
+        
+        initCanvas(myCanvas);
+        
+        // redraw the canvas...
+        var context = myCanvas.getContext("2d");
+        context.fillStyle = 'rgb(255,255,255)';
+        context.fillRect(0, 0, myCanvas.width, myCanvas.height);
+        context.lineCap = "round";
+    }
+    
+    function updateImage(canvas)
+    {
+        var context = canvas.getContext("2d");
+
+        setInterval( function(){
+			// FIXME: Not the final interface
+     	   canvas.parentNode._x3domNode.invalidateGLObject();
+        
+     	   last_mouse_drag_x = mouse_drag_x;
+     	   last_mouse_drag_y = mouse_drag_y;
+
+			var img=document.getElementById("scream");
+			context.drawImage(img,10,10);
+		}, 50);
+        
+    }
+    
+    // add event listeners
+    function initCanvas(canvas)
+    {
+		
+		canvas.addEventListener('mouseup', function (evt) {
+			mouse_button = 0;
+			mouse_dragging = false;
+            last_mouse_drag_x = -1;
+            last_mouse_drag_y = -1;
+            
+            updateImage(canvas);
+			
+			evt.preventDefault();
+			evt.stopPropagation();
+			evt.returnValue = false;
+		}, false);
+		
+
+    }
+    </script>
+    
+    
+    <link rel='stylesheet' type='text/css' href='x3dom.css'>
+
+</head>
+
+<body onload='main();' style="background-color:#F0F0F0">
+
+
+
+
+
+
+
+	<video autoplay id="vid" style="display:none;"></video>
+	
+	<canvas id="canvas" width="640" height="480" style="border:1px solid #d3d3d3;"></canvas><br>
+	<canvas id="canvas2" width="640" height="480" style="border:1px solid #d3d3d3;"></canvas><br>	
+	<button onclick="setTimeout('start()', 2000);">Iniciar</button>
+	<button onclick="snapshot()">Adaptar novamente</button>
+
+	<br />
+	
+	<script type="text/javascript">
+
+	    var video = document.querySelector("#vid");
+	    var canvas;
+	    var ctx;
+	    var localMediaStream = null;
+
+	    var onCameraFail = function (e) {
+		   console.log('Camera did not work.', e);
+	    };
+
+		function start(){			
+			setTimeout("snapshot()",800);
+			
+			setInterval("snapshot2()",50);
+			setInterval("cut()",75);					
+		}
+
+	    function snapshot() {
+			canvas = document.querySelector('#canvas');	    
+			ctx = canvas.getContext('2d');
+		   if (localMediaStream) {
+			  ctx.drawImage(video, 0, 0);
+		   }
+	    }
+
+
+	    function snapshot2() {
+		   canvas = document.querySelector('#canvas2');
+			ctx = canvas.getContext('2d');		   
+		   if (localMediaStream) {
+			  ctx.drawImage(video, 0, 0);
+		   }
+	    }
+
+	    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+	    window.URL = window.URL || window.webkitURL;
+	    navigator.getUserMedia({video:true}, function (stream) {
+		   video.src = window.URL.createObjectURL(stream);
+		   localMediaStream = stream;
+	    }, onCameraFail);
+
+	function cut(){
+            var c=document.getElementById("canvas");
+		  var ctx=c.getContext("2d");
+		  var imgData=ctx.getImageData(0,0,c.width,c.height);
+
+		  var c2=document.getElementById("canvas2");
+		  var ctx2=c2.getContext("2d");
+		  var imgData2=ctx2.getImageData(0,0,c2.width,c2.height);
+
+		var c3=document.getElementById("canvas3");
+		  var ctx3=c3.getContext("2d");
+		  var 	count = 1;
+		  // captura somente a diferença
+		  for (var i=0;i<imgData.data.length;i+=4)
+		    {
+
+				imgData2.data[i+3]=0;
+
+				//RED
+				soma1 = imgData.data[i];
+				soma2 = imgData2.data[i];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;				
+				if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+
+				//GREEN
+				soma1 = imgData.data[i + 1];
+				soma2 = imgData2.data[i + 1];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;		
+			    if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+					    
+				//BLUE
+				soma1 = imgData.data[i + 2];
+				soma2 = imgData2.data[i + 2];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;	
+			    if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+
+				//Opacity
+				soma1 = imgData.data[i + 3];
+				soma2 = imgData2.data[i + 3];
+				if (soma1 < 124) soma1 = 255 - soma1;
+				if (soma2 < 124) soma2 = 255 - soma2;				
+				if ( (soma1/soma2 > 1.23)  |  (soma2/soma1 > 1.23)  ) imgData2.data[i+3]=255;
+
+				if ( i > 4*c.width*10 ){
+					if ( 
+							imgData2.data[i+3 - 4*c.width*1 ] == 0 &
+							imgData2.data[i+3 - 4*1 ] == 0 & count%2 == 0
+						){
+							imgData2.data[i+3] = 0;
+							imgData2.data[i+1] = 255;
+							count = count%4;
+					}
+					count++;
+				}
+
+		    }
+		  ctx3.putImageData(imgData2,0,0);	
+		}
+
+	</script>
+
+
+
+
+
+	<br />
+
+
+
+
+
+
+
+
+    <x3d id="aScene" showStat="true" showLog="false" x="0px" y="0px" width="500px" height="350px">
+      <scene>
+        <background skyColor='.5 .4 .2'></background>
+        <viewpoint position='0 0 5'></viewpoint>
+          <shape>
+            <appearance>
+                <texture hideChildren="false">
+                    <canvas width='256' height='256' id='canvas3' style="border: solid 1px black; position:absolute; top:20px;left:520px;">
+                </texture>
+                <material diffuseColor='0.6 0.9 0.5'></material>	
+            </appearance>
+            <box size='3 3 3'></box>
+         </shape>
+		<Transform DEF="sphereTrafo" translation="1.5 0 0">
+					<Shape DEF="sphereShape">
+						<Appearance DEF="sphereApp">
+							<Material diffuseColor="0 0 1" specularColor=".5 .5 .5" />
+						</Appearance>
+						<Sphere DEF="sphere" />
+					</Shape>
+		</Transform>
+      </scene>
+    </x3d>
+    
+
+    <script type="text/javascript" src="x3dom.js"></script>
+        
+	<br />
+
+
+	<img id="scream" src="mack.jpg" alt="description" title="description" width="400" height="" />
+    
+</body>
+
+</html>
+
