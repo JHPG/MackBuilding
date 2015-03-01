@@ -76,14 +76,14 @@
 			Your browser does not support the audio element.
 		</audio>
 
-		<button onclick="switcher('0','switcher'); showText('<h3>Mackenzie Building 1896</h3> - Escola de Engenharia', '')">
-			1896</button>
-		<button onclick="switcher('1','switcher'); showText('<h3>Mackenzie Building 1920</h3> - Escola de Engenharia', '')">
-			1920</button>
-		<button onclick="switcher('2','switcher'); showText('<h3>Mackenzie Building 1952</h3> - Em 1952 o Edifício Mackenzie passa a sediar a Reitoria!', '')">
-			1952</button>
-		<button onclick="switcher('3','switcher'); showText('<h3>Mackenzie Building 2004</h3> - Centro Histórico e Cultural Mackenzie', '')">
-			2004</button>
+		<button onclick="switcher('0','switcher'); 
+			showText('<h3>Mackenzie Building 1896</h3> - Escola de Engenharia', '1896.mp3')"> 1896</button>
+		<button onclick="switcher('1','switcher'); 
+			showText('<h3>Mackenzie Building 1920</h3> - Escola de Engenharia', '1920.mp3')"> 1920</button>
+		<button onclick="switcher('2','switcher'); 
+			showText('<h3>Mackenzie Building 1952</h3> - Em 1952 o Edifício Mackenzie passa a sediar a Reitoria!', '1952.mp3')"> 1952</button>
+		<button onclick="switcher('3','switcher'); 
+			showText('<h3>Mackenzie Building 2004</h3> - Centro Histórico e Cultural Mackenzie', '2004.mp3')"> 2004</button>
 
 		<span id="info"><h3>Mackenzie Building</h3></span>
 
@@ -568,7 +568,7 @@
 							<!-- <Inline  bboxCenter="0.0 0.0 0.0" url='"1920.x3d"' bboxSize="10.0 5.0 10.0" /> -->
 							<prototype use="Mack1920"></prototype>
 						 </Transform>
-						<Group DEF="Stairs" onmouseover=" showText('A escada foi refeita e ficou voltada para a entrada do Campus. Foi alterada, provavelmente, em 1920, e assim permanece até hoje.', 'teste1.mp3'); ">
+						<Group DEF="Stairs" onmouseover=" showText('A escada foi refeita e ficou voltada para a entrada do Campus. Foi alterada, provavelmente, em 1920, e assim permanece até hoje.', 'escada1920.mp3'); ">
 							<Transform translation="0.15 0.0 -0.6">
 								<!-- <Inline  bboxCenter="0.0 0.0 0.0" url='"escada.x3d"' bboxSize="5.0 5.0 5.0"/> -->
 								<prototype use="escada"> </prototype>

@@ -42,7 +42,7 @@ function showText(text, arq){
 function playAudio(arq){
 	var audioSrc = document.getElementById("audio");
 	var audioControl = document.getElementById("audioControl");
-	audioSrc.src = arq;
+	audioSrc.src = "audio/" + arq;
 	audioControl.load();
 	setTimeout(function(){ audioControl.play() }, 1000);
 }
