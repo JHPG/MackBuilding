@@ -5,7 +5,7 @@
 var video = document.querySelector("#vid");
 var canvas;
 var ctx;
-var localMediaStream = null;
+var localMediaStream;
 
 var onCameraFail = function (e) {
    console.log('Camera did not work.', e);
@@ -28,14 +28,7 @@ function snapshot2() {
    }
 }
 
-function start(){			
-	setTimeout("snapshot()",800);
-	setInterval("snapshot2()",50);
-	setInterval("cut()",75);					
-
-	
-
-	video = document.querySelector("#vid");
+function start() { 
 
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 	window.URL = window.URL || window.webkitURL;
@@ -43,6 +36,24 @@ function start(){
 	   video.src = window.URL.createObjectURL(stream);
 	   localMediaStream = stream;
 	}, onCameraFail);
+
+	navigator.getMedia({ video: true }, function (stream) {
+		video.src = window.URL.createObjectURL(stream);
+		localMediaStream = stream;
+	}, userMediaError());
+
+	if (!!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)) {
+		video = document.querySelector("#vid");	//Elemento video
+		canvas = document.getElementById('canvas'); //Elemento canvas
+		context = canvas.getContext('2d');
+	}
+	else {
+		alert("Desculpa! Seu navegador não apresenta suporte.");
+	}
+
+	setTimeout("snapshot()",800);
+	setInterval("snapshot2()",50);
+	setInterval("cut()",75);
 }
 
 function cut(){
