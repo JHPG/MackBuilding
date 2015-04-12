@@ -2,4 +2,7 @@
 
 Mackenzie Historical Building (Project)
 
-The project preview is avaliable at http://jhpg.github.io/MackBuilding/
+The project preview is avaliable at:
+
+- http://jhpg.github.io/MackBuilding/
+- http://mackbuilding.zz.vc/
